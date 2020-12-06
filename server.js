@@ -7,8 +7,9 @@ const knex = require('knex');
 
 const register = require('./controllers/register.js')
 const signin = require('./controllers/signin.js')
-const image = require('./controllers/image');
+const image = require('./controllers/image.js');
 const profile = require('./controllers/profile.js');
+const leaderboard = require('./controllers/leaderboard.js')
 
 const db = knex({
     client: 'pg',
@@ -42,6 +43,8 @@ app.post('/signin', (req, res) => { signin.handleSignIn(req, res, db, bcrypt, sa
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt, saltRounds)})
 
 app.post('/imageurl', (req, res) => { image.handleAPICall(req, res) })
+
+app.post('/updateleaderboard', (req, res) => { leaderboard.updateLeaderboard(req, res, db) })
 
 app.listen(3000, () => {
     console.log('app is running on port 3000')
