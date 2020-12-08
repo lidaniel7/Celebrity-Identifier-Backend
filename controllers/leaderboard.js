@@ -10,7 +10,7 @@ const updateLeaderboard = (req, res, db) => {
                     .increment('frequency', 1)
                     .returning('frequency')
                     .then(frequency => {
-                        res.json(frequency[0])
+                        res.json("frequency updated successfully")
                     })
                     .catch(err => res.status(400).json('unable to gt frequency of appearances'))
             } else {
@@ -19,13 +19,21 @@ const updateLeaderboard = (req, res, db) => {
                     frequency: 1
                 }).then(user => {
                     console.log(user)
-                    res.json(name)
+                    res.json(`${name} added successfully!`)
                 })
             }
         })
 }
 
+const getLeaderboard = (req, res, db) => {
+    return db('celebrities').select('name', 'frequency').orderBy('frequency', 'desc').limit(3)
+        .then(names => {
+            res.json(names)
+        })
+}
+
 
 module.exports = {
-    updateLeaderboard: updateLeaderboard
+    updateLeaderboard: updateLeaderboard,
+    getLeaderboard: getLeaderboard,
 };

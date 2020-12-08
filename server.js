@@ -46,6 +46,8 @@ app.post('/imageurl', (req, res) => { image.handleAPICall(req, res) })
 
 app.post('/updateleaderboard', (req, res) => { leaderboard.updateLeaderboard(req, res, db) })
 
+app.get('/leaderboard', (req, res) => { leaderboard.getLeaderboard(req, res, db)})
+
 app.listen(3000, () => {
     console.log('app is running on port 3000')
 })
