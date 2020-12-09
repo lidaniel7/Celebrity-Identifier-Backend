@@ -13,10 +13,7 @@ const leaderboard = require('./controllers/leaderboard.js')
 
 const db = knex({
     client: 'pg',
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
+    connection: process.env.DATABASE_URL,
 });
 
 db.select('*').from('users').then(data => { //don't need to convert to json because not http request
