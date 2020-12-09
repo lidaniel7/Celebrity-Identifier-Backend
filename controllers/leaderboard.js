@@ -28,6 +28,7 @@ const updateLeaderboard = (req, res, db) => {
 const getLeaderboard = (req, res, db) => {
     return db('celebrities').select('name', 'frequency').orderBy('frequency', 'desc').limit(3)
         .then(names => {
+            console.log('get leaderboard')
             res.json(names)
         })
 }
