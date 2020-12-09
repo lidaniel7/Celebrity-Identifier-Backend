@@ -13,9 +13,9 @@ const leaderboard = require('./controllers/leaderboard.js')
 
 const db = knex({
     client: 'pg',
-    connection: {
-        connectionString: process.env.DATABASE_URL,
-        ssl: true,
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
     }
 });
 
@@ -32,19 +32,19 @@ app.get('/', (req, res) => {
     res.send('success')
 })
 
-app.get('/profile/:id', (req, res) => { profile.handleProfile(req, res, db)})
+app.get('/profile/:id', (req, res) => { profile.handleProfile(req, res, db) })
 
-app.put('/image', (req, res) => { image.handleImage(req, res, db)})
+app.put('/image', (req, res) => { image.handleImage(req, res, db) })
 
-app.post('/signin', (req, res) => { signin.handleSignIn(req, res, db, bcrypt, saltRounds)})
+app.post('/signin', (req, res) => { signin.handleSignIn(req, res, db, bcrypt, saltRounds) })
 
-app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt, saltRounds)})
+app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt, saltRounds) })
 
 app.post('/imageurl', (req, res) => { image.handleAPICall(req, res) })
 
 app.post('/updateleaderboard', (req, res) => { leaderboard.updateLeaderboard(req, res, db) })
 
-app.get('/leaderboard', (req, res) => { leaderboard.getLeaderboard(req, res, db)})
+app.get('/leaderboard', (req, res) => { leaderboard.getLeaderboard(req, res, db) })
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`app is running on port ${process.env.PORT}`)
